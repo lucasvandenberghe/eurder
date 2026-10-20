@@ -9,6 +9,8 @@ import org.switchfully.eurder.api.dtos.customer.CustomerResponseDTO;
 import org.switchfully.eurder.api.mappers.CustomerMapper;
 import org.switchfully.eurder.services.CustomerService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/customers")
 public class CustomerController {
@@ -26,5 +28,11 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerResponseDTO createCustomer(@Valid @RequestBody CustomerCreationRequestDTO customerCreationRequestDTO) {
         return customerMapper.toResponseDTO(customerService.createCustomer(customerMapper.toCustomer(customerCreationRequestDTO)));
+    }
+
+    @GetMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CustomerResponseDTO> getCustomers() {
+        return customerMapper.toResponseDTO(customerService.getCustomers());
     }
 }

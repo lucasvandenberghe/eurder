@@ -5,6 +5,8 @@ import org.switchfully.eurder.api.dtos.customer.CustomerCreationRequestDTO;
 import org.switchfully.eurder.api.dtos.customer.CustomerResponseDTO;
 import org.switchfully.eurder.domain.Customer;
 
+import java.util.List;
+
 @Component
 public class CustomerMapper {
     public Customer toCustomer(CustomerCreationRequestDTO customerCreationRequestDTO) {
@@ -26,5 +28,9 @@ public class CustomerMapper {
                 customer.getAddress(),
                 customer.getPhoneNumber()
         );
+    }
+
+    public List<CustomerResponseDTO> toResponseDTO(List<Customer> customers) {
+        return customers.stream().map(this::toResponseDTO).toList();
     }
 }

@@ -5,6 +5,8 @@ import org.switchfully.eurder.domain.Customer;
 import org.switchfully.eurder.repositories.CustomerRepository;
 import org.switchfully.eurder.services.exceptions.CustomerServiceException;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
 
@@ -19,5 +21,9 @@ public class CustomerService {
             throw new CustomerServiceException("Customer with that id already exists.");
 
         return customerRepository.putCustomer(customer);
+    }
+
+    public List<Customer> getCustomers() {
+        return customerRepository.getAllCustomers();
     }
 }

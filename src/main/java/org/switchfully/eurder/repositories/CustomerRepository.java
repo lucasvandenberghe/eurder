@@ -3,10 +3,7 @@ package org.switchfully.eurder.repositories;
 import org.springframework.stereotype.Repository;
 import org.switchfully.eurder.domain.Customer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class CustomerRepository {
@@ -33,5 +30,9 @@ public class CustomerRepository {
 
     public Optional<Customer> getById(UUID id) {
         return Optional.ofNullable(idToCustomer.get(id));
+    }
+
+    public List<Customer> getAllCustomers() {
+        return idToCustomer.values().stream().toList();
     }
 }
