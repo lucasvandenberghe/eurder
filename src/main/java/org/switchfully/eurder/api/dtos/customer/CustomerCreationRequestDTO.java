@@ -7,6 +7,7 @@ public record CustomerCreationRequestDTO(@NotBlank
                                          String firstName,
                                          @NotBlank
                                          String lastName,
+                                         @NotBlank
                                          @Email
                                          String emailAddress,
                                          @NotBlank

@@ -10,6 +10,7 @@ import org.switchfully.eurder.api.mappers.CustomerMapper;
 import org.switchfully.eurder.services.CustomerService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/customers")
@@ -34,5 +35,11 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.OK)
     public List<CustomerResponseDTO> getCustomers() {
         return customerMapper.toResponseDTO(customerService.getCustomers());
+    }
+
+    @GetMapping(path = "/{id}", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerResponseDTO getCustomer(@PathVariable UUID id) {
+        return customerMapper.toResponseDTO(customerService.getCustomerById(id));
     }
 }
