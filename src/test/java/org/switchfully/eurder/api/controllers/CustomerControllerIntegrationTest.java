@@ -296,5 +296,48 @@ class CustomerControllerIntegrationTest {
                 .containsExactlyInAnyOrderElementsOf(List.of(customerMapper.toResponseDTO(customer1), customerMapper.toResponseDTO(customer2)));
     }
 
+    @Test
+    void givenKnownCustomerId_whenGetCustomer_thenGetCustomerWith200Status() throws Exception {
+        // Given
+        Customer customer = new Customer("James",
+                "Bond",
+                "james.bond@mi6.uk",
+                "85 Albert Embankment, London SE11 5AW, United Kingdom",
+                "+32477777777");
 
+        customerRepository.putCustomer(customer);
+
+        // When
+        ResultActions result = mockMvc.perform(get("/customers/" + customer.getId())
+                .accept(MediaType.APPLICATION_JSON));
+
+        // Then
+        result.andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("""
+                        {
+                          "id": "%s",
+                          "firstName": "James",
+                          "lastName": "Bond",
+                          "emailAddress":  "james.bond@mi6.uk",
+                          "address": "85 Albert Embankment, London SE11 5AW, United Kingdom",
+                          "phoneNumber":  "+32477777777"
+                        }
+                        """.formatted(customer.getId())));
+
+    }
+
+    @Test
+    void givenInvalidUUIDFormat_whenGetCustomer_then400Status() throws Exception {
+        mockMvc.perform(get("/customers/{id}", "1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void givenUnknownUUID_whenGetCustomer_then404Status() throws Exception {
+        mockMvc.perform(get("/customers/{id}", "85eaaafd-6b5f-41d8-9845-b10b3c396bfe")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }

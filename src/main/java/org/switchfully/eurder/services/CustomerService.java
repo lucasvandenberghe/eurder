@@ -3,9 +3,11 @@ package org.switchfully.eurder.services;
 import org.springframework.stereotype.Service;
 import org.switchfully.eurder.domain.Customer;
 import org.switchfully.eurder.repositories.CustomerRepository;
+import org.switchfully.eurder.services.exceptions.CustomerNotFoundException;
 import org.switchfully.eurder.services.exceptions.CustomerServiceException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CustomerService {
@@ -25,5 +27,13 @@ public class CustomerService {
 
     public List<Customer> getCustomers() {
         return customerRepository.getAllCustomers();
+    }
+
+    public Customer getCustomerById(UUID id) {
+        if (id == null)
+            throw new CustomerServiceException("id can not be null.");
+
+        return customerRepository.getById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with id " + id + " not found."));
     }
 }
