@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.switchfully.eurder.domain.exceptions.CustomerException;
+import org.switchfully.eurder.domain.exceptions.ItemException;
 import org.switchfully.eurder.services.exceptions.CustomerNotFoundException;
 import org.switchfully.eurder.services.exceptions.CustomerServiceException;
+import org.switchfully.eurder.services.exceptions.ItemServiceException;
 
 import java.io.IOException;
 
@@ -35,6 +37,20 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(CustomerServiceException.class)
     protected void handleCustomerServiceException(CustomerServiceException ex, HttpServletResponse response) throws IOException {
         logger.warn("Unable to execute CustomerService method", ex);
+
+        response.sendError(INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(ItemException.class)
+    protected void handleItemException(ItemException ex, HttpServletResponse response) throws IOException {
+        logger.warn("Unable to create Item", ex);
+
+        response.sendError(BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ExceptionHandler(ItemServiceException.class)
+    protected void handleItemServiceException(ItemServiceException ex, HttpServletResponse response) throws IOException {
+        logger.warn("Unable to execute ItemService method", ex);
 
         response.sendError(INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
