@@ -3,10 +3,7 @@ package org.switchfully.eurder.repositories;
 import org.springframework.stereotype.Repository;
 import org.switchfully.eurder.domain.Item;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class ItemRepository {
@@ -34,5 +31,9 @@ public class ItemRepository {
 
     public Optional<Item> getById(UUID itemId) {
         return Optional.ofNullable(idToItem.get(itemId));
+    }
+
+    public List<Item> getAllItems() {
+        return idToItem.values().stream().toList();
     }
 }

@@ -5,6 +5,8 @@ import org.switchfully.eurder.domain.Item;
 import org.switchfully.eurder.repositories.ItemRepository;
 import org.switchfully.eurder.services.exceptions.ItemServiceException;
 
+import java.util.List;
+
 @Service
 public class ItemService {
 
@@ -19,5 +21,9 @@ public class ItemService {
             throw new ItemServiceException("Item with that id already exists.");
 
         return itemRepository.putItem(item);
+    }
+
+    public List<Item> getAllItems() {
+        return itemRepository.getAllItems();
     }
 }

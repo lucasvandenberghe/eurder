@@ -33,7 +33,7 @@ public class ItemController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<ItemResponseDTO> getItems() {
-        return itemMapper.toResponseDTO(itemService.getItems());
+    public List<ItemResponseDTO> getAllItems() {
+        return itemMapper.toResponseDTO(itemService.getAllItems());
     }
 }

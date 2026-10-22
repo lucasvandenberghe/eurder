@@ -5,6 +5,8 @@ import org.switchfully.eurder.api.dtos.item.ItemCreationRequestDTO;
 import org.switchfully.eurder.api.dtos.item.ItemResponseDTO;
 import org.switchfully.eurder.domain.Item;
 
+import java.util.List;
+
 @Component
 public class ItemMapper {
 
@@ -25,5 +27,9 @@ public class ItemMapper {
                 item.getPrice(),
                 item.getAmount()
         );
+    }
+
+    public List<ItemResponseDTO> toResponseDTO(List<Item> items) {
+        return items.stream().map(this::toResponseDTO).toList();
     }
 }

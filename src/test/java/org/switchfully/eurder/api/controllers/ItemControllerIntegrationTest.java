@@ -247,6 +247,6 @@ class ItemControllerIntegrationTest {
 
         assertThat(actualItems)
                 .usingRecursiveFieldByFieldElementComparator()
-                .containsExactlyInAnyOrderElementsOf(List.of(itemMapper.toResponseDTO(item1), itemMapper.toResponseDTO(item1)));
+                .containsExactlyInAnyOrderElementsOf(List.of(itemMapper.toResponseDTO(item1), itemMapper.toResponseDTO(item2)));
     }
 }
