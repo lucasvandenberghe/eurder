@@ -189,7 +189,17 @@ public class CustomerControllerWebTest {
         ).andExpectAll(
                 status().isOk(),
                 content().contentType(MediaType.APPLICATION_JSON),
-                jsonPath("$")
-        )
+                jsonPath("$.length()").value(2),
+                jsonPath("$[?(@.id == 1)].firstName").value("test1"),
+                jsonPath("$[?(@.id == 2)].firstName").value("test2"),
+                jsonPath("$[?(@.id == 1)].lastName").value("testtest1"),
+                jsonPath("$[?(@.id == 2)].lastName").value("testtest2"),
+                jsonPath("$[?(@.id == 1)].emailAddress").value("test1@test.test"),
+                jsonPath("$[?(@.id == 2)].emailAddress").value("test2@test.test"),
+                jsonPath("$[?(@.id == 1)].address").value("teststreet1"),
+                jsonPath("$[?(@.id == 2)].address").value("teststreet2"),
+                jsonPath("$[?(@.id == 1)].phoneNumber").value("0123456781"),
+                jsonPath("$[?(@.id == 2)].phoneNumber").value("0123456782")
+        );
     }
 }
