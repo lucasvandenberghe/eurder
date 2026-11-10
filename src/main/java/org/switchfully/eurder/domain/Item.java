@@ -1,6 +1,6 @@
 package org.switchfully.eurder.domain;
 
-import org.switchfully.eurder.domain.exceptions.ItemException;
+import org.switchfully.eurder.domain.exception.ItemException;
 
 import java.util.Objects;
 import java.util.UUID;
