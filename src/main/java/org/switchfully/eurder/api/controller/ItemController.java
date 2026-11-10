@@ -3,11 +3,10 @@ package org.switchfully.eurder.api.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.switchfully.eurder.api.dto.item.ItemCreationRequestDTO;
 import org.switchfully.eurder.api.dto.item.ItemResponseDTO;
 import org.switchfully.eurder.api.mapper.ItemMapper;
-import org.switchfully.eurder.domain.Item;
 import org.switchfully.eurder.service.ItemService;
+import org.switchfully.eurder.service.request.CreateItemRequest;
 
 import java.util.List;
 
@@ -25,10 +24,8 @@ public class ItemController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemResponseDTO createItem(@Valid @RequestBody ItemCreationRequestDTO itemCreationRequestDTO) {
-        Item itemToCreate = itemMapper.toItem(itemCreationRequestDTO);
-
-        return itemMapper.toResponseDTO(itemService.createItem(itemToCreate));
+    public ItemResponseDTO createItem(@Valid @RequestBody CreateItemRequest createItemRequest) {
+        return itemMapper.toResponseDTO(itemService.createItem(createItemRequest));
     }
 
     @GetMapping(produces = "application/json")

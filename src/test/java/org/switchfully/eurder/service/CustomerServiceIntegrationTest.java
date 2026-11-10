@@ -79,9 +79,7 @@ class CustomerServiceIntegrationTest {
     @Test
     void givenIdOfNonExistingCustomer_whenGetCustomerById_thenThrowNotFoundException() {
         assertThatExceptionOfType(NotFoundException.class)
-                .isThrownBy(() -> {
-                    customerService.getCustomerById(0L);
-                })
+                .isThrownBy(() -> customerService.getCustomerById(0L))
                 .withMessage("Customer with id 0 not found.");
     }
 
@@ -103,7 +101,7 @@ class CustomerServiceIntegrationTest {
                 "0123456782"
         ));
 
-        List<Customer> customers = customerService.getCustomers();
+        List<Customer> customers = customerService.getAllCustomers();
 
         assertThat(customers)
                 .isNotNull();

@@ -30,8 +30,8 @@ public class CustomerController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerResponseDTO> getCustomers() {
-        return customerMapper.toResponseDTO(customerService.getCustomers());
+    public List<CustomerResponseDTO> getAllCustomers() {
+        return customerMapper.toResponseDTO(customerService.getAllCustomers());
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")

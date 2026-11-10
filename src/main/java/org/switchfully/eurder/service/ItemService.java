@@ -3,7 +3,7 @@ package org.switchfully.eurder.service;
 import org.springframework.stereotype.Service;
 import org.switchfully.eurder.domain.Item;
 import org.switchfully.eurder.repository.ItemRepository;
-import org.switchfully.eurder.service.exception.ItemServiceException;
+import org.switchfully.eurder.service.request.CreateItemRequest;
 
 import java.util.List;
 
@@ -16,14 +16,18 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public Item createItem(Item item) {
-        if (itemRepository.existsById(item.getId()))
-            throw new ItemServiceException("Item with that id already exists.");
+    public Item createItem(CreateItemRequest createItemRequest) {
+        Item item = new Item(
+                createItemRequest.name(),
+                createItemRequest.description(),
+                createItemRequest.price(),
+                createItemRequest.amount()
+        );
 
-        return itemRepository.putItem(item);
+        return itemRepository.save(item);
     }
 
     public List<Item> getAllItems() {
-        return itemRepository.getAllItems();
+        return itemRepository.findAll();
     }
 }

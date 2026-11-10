@@ -164,7 +164,7 @@ public class CustomerControllerWebTest {
         );
         ReflectionTestUtils.setField(mockCustomer2, "id", 2L);
 
-        when(customerService.getCustomers())
+        when(customerService.getAllCustomers())
                 .thenReturn(List.of(mockCustomer1, mockCustomer2));
 
         when(customerMapper.toResponseDTO(anyList()))
