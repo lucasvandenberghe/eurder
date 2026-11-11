@@ -145,7 +145,7 @@ public class CustomerControllerWebTest {
     }
 
     @Test
-    void givenSavedCustomers_whenGetCustomers_thenListOfCustomersReturnedWith200() throws Exception {
+    void givenSavedCustomers_whenGetAllCustomers_thenListOfCustomersReturnedWith200() throws Exception {
         Customer mockCustomer1 = new Customer(
                 "test1",
                 "testtest1",
