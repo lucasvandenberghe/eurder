@@ -84,7 +84,7 @@ class CustomerServiceIntegrationTest {
     }
 
     @Test
-    void givenCustomersInDatabase_whenGetCustomers_thenReturnListOfCustomers() {
+    void givenCustomersInDatabase_whenGetAllCustomers_thenReturnListOfCustomers() {
         Customer customer1 = customerRepository.save(new Customer(
                 "testfirst1",
                 "testlast1",
@@ -104,8 +104,7 @@ class CustomerServiceIntegrationTest {
         List<Customer> customers = customerService.getAllCustomers();
 
         assertThat(customers)
-                .isNotNull();
-        assertThat(customers)
+                .isNotNull()
                 .usingRecursiveFieldByFieldElementComparator()
                 .containsExactlyInAnyOrder(customer1, customer2);
     }
