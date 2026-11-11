@@ -1,8 +1,6 @@
-package org.switchfully.eurder.api.dtos.customer;
+package org.switchfully.eurder.api.dto.customer;
 
-import java.util.UUID;
-
-public record CustomerResponseDTO(UUID id,
+public record CustomerResponseDTO(long id,
                                   String firstName,
                                   String lastName,
                                   String emailAddress,

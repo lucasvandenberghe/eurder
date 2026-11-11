@@ -1,31 +1,25 @@
 package org.switchfully.eurder.domain;
 
-import org.switchfully.eurder.domain.exceptions.CustomerException;
+import jakarta.persistence.*;
 
 import java.util.Objects;
-import java.util.UUID;
 
+@Entity
 public class Customer {
-    private final UUID id;
-    private final String firstName;
-    private final String lastName;
-    private final String emailAddress;
-    private final String address;
-    private final String phoneNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CUSTOMER")
+    @SequenceGenerator(name = "SEQ_CUSTOMER", allocationSize = 1, sequenceName = "seq_customer")
+    private long id;
+
+    private String firstName;
+    private String lastName;
+    private String emailAddress;
+    private String address;
+    private String phoneNumber;
+
+    protected Customer() {}
 
     public Customer(String firstName, String lastName, String emailAddress, String address, String phoneNumber) {
-        if (firstName == null || firstName.isBlank())
-            throw new CustomerException("Please provide a non-blank firstName.");
-        if (lastName == null || lastName.isBlank())
-            throw new CustomerException("Please provide a non-blank lastName.");
-        if (emailAddress == null || emailAddress.isBlank())
-            throw new CustomerException("Please provide a non-blank emailAddress.");
-        if (address == null || address.isBlank())
-            throw new CustomerException("Please provide a non-blank address.");
-        if (phoneNumber == null || phoneNumber.isBlank())
-            throw new CustomerException("Please provide a non-blank phoneNumber.");
-
-        id = UUID.randomUUID();
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
@@ -33,7 +27,7 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 

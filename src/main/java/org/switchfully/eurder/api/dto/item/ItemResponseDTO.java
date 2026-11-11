@@ -1,9 +1,7 @@
-package org.switchfully.eurder.api.dtos.item;
-
-import java.util.UUID;
+package org.switchfully.eurder.api.dto.item;
 
 public record ItemResponseDTO(
-        UUID id,
+        long id,
         String name,
         String description,
         double price,

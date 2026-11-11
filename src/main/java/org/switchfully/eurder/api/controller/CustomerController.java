@@ -1,16 +1,14 @@
-package org.switchfully.eurder.api.controllers;
+package org.switchfully.eurder.api.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.switchfully.eurder.api.dtos.customer.CustomerCreationRequestDTO;
-import org.switchfully.eurder.api.dtos.customer.CustomerResponseDTO;
-import org.switchfully.eurder.api.mappers.CustomerMapper;
-import org.switchfully.eurder.services.CustomerService;
+import org.switchfully.eurder.api.dto.customer.CustomerResponseDTO;
+import org.switchfully.eurder.api.mapper.CustomerMapper;
+import org.switchfully.eurder.service.CustomerService;
+import org.switchfully.eurder.service.request.CreateCustomerRequest;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/customers")
@@ -19,7 +17,6 @@ public class CustomerController {
     private final CustomerService customerService;
     private final CustomerMapper customerMapper;
 
-    @Autowired
     public CustomerController(CustomerService customerService, CustomerMapper customerMapper) {
         this.customerService = customerService;
         this.customerMapper = customerMapper;
@@ -27,19 +24,19 @@ public class CustomerController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public CustomerResponseDTO createCustomer(@Valid @RequestBody CustomerCreationRequestDTO customerCreationRequestDTO) {
-        return customerMapper.toResponseDTO(customerService.createCustomer(customerMapper.toCustomer(customerCreationRequestDTO)));
+    public CustomerResponseDTO createCustomer(@Valid @RequestBody CreateCustomerRequest createCustomerRequest) {
+        return customerMapper.toResponseDTO(customerService.createCustomer(createCustomerRequest));
     }
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerResponseDTO> getCustomers() {
-        return customerMapper.toResponseDTO(customerService.getCustomers());
+    public List<CustomerResponseDTO> getAllCustomers() {
+        return customerMapper.toResponseDTO(customerService.getAllCustomers());
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerResponseDTO getCustomer(@PathVariable UUID id) {
+    public CustomerResponseDTO getCustomer(@PathVariable long id) {
         return customerMapper.toResponseDTO(customerService.getCustomerById(id));
     }
 }
